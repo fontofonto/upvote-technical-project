@@ -7,8 +7,8 @@
         :rowIndex="rowIndex"
       />
     </div>
-    <button class="add-btn">
-      <IconAdd @click="addUpvote(rowIndex)" />
+    <button class="add-btn" @click="addUpvote(rowIndex)">
+      <IconAdd />
     </button>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 1rem 0;
+  margin: 1rem;
 }
 .upvote-wrapper {
   padding: 0.5rem;
@@ -55,18 +55,12 @@ export default {
   overflow-x: auto;
   overflow-y: hidden;
 }
-button {
-  appearance: none;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 1rem;
-  cursor: pointer;
+.upvote-wrapper button {
+  flex: 0 0 auto;
 }
+
 .add-btn {
+  flex: 0 0 auto;
   margin: 1rem;
 }
 </style>
