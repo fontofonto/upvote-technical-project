@@ -1,27 +1,31 @@
 <template>
-  <button :class="{ 'is-selected': isSelected }" @click="toggleState">
+  <button :class="{ 'is-selected': isSelected }" @click="toggleState(rowIndex)">
     <ArrowUp :fillColor="isSelected ? '#253CF2' : '#343A40'" />
   </button>
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 import ArrowUp from "./icons/ArrowUp.vue";
 
 export default {
+  props: {
+    rowIndex: {
+      required: true,
+      type: Number,
+    },
+  },
   components: {
     ArrowUp,
   },
-  setup() {
-    const isSelected = ref(false);
-
-    let toggleState = () => {
-      isSelected.value = !isSelected.value;
-    };
+  setup(props) {
+    const store = useStore();
 
     return {
-      isSelected,
-      toggleState,
+      isSelected: computed(() => store.state.activeIndex === props.rowIndex),
+      toggleState: (rowIndex) =>
+        store.commit("updateActiveIndex", { rowIndex }),
     };
   },
 };
@@ -39,6 +43,7 @@ button {
   border-radius: 1rem;
   cursor: pointer;
   background: #f4f6f8;
+  flex: 0 0 auto;
 }
 .is-selected {
   background: #e5e8fd;
